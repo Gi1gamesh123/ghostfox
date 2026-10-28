@@ -47,15 +47,13 @@ inline bool SvgViewBoxNumber(DomStringView text, float* result) {
   std::string ascii;
   ascii.reserve(text.size());
   for (char16_t c : text) ascii.push_back(char(c));
-  const char* begin = ascii.data() + (ascii[0] == '+' ? 1:0);
   // std::from_chars(float) is availability-annotated to macOS 26 on Apple;
   // the token is pre-validated above (digits/dot/exponent only), where
   // strtod parses the same span with the same range-error reporting.
-  const std::string body(begin, ascii.data() + ascii.size());
   char* stop = nullptr;
   errno = 0;
-  *result = std::strtod(body.c_str(), &stop);
-  const bool whole = stop == body.c_str() + body.size();
+  *result = std::strtod(ascii.c_str(), &stop);
+  const bool whole = stop == ascii.c_str() + ascii.size();
   if (errno == 0 && whole) return std::isfinite(*result);
   if (errno != ERANGE) return false;
   // strtod reports underflow as ERANGE; SVG accepts signed zero.
