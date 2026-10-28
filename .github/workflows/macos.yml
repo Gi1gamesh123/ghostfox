@@ -61,26 +61,28 @@ jobs:
       - name: Fetch Mozilla clang 19
         working-directory: tree
         run: |
-          # fail fast if PATH drift resurrected an unsupported python
-          PYV=$(python3 -c 'import sys; print("%d.%d" % sys.version_info[:2])')
-          [ "$PYV" = "3.14" ] || { echo "::error::python3 is $PYV, mach needs 3.14 (3.15+ breaks taskgraph deps)"; exit 1; }
-          # aarch64 runner: the arm64 flavor of Mozilla's clang (the x64
-          # label extracts nothing usable here).
-          python3 mach artifact toolchain --from-build macosx64-aarch64-clang
+          # python@3.14 is keg-only: its bin has no unversioned `python3`,
+          # so PATH tricks can't select it — call the versioned interpreter
+          # explicitly (mach caps supported python at 3.14; 3.15 breaks the
+          # taskgraph deps, 3.11 breaks taskgraph generation).
+          PY3="$(brew --prefix python@3.14)/bin/python3.14"
+          "$PY3" --version
+          "$PY3" mach artifact toolchain --from-build macosx64-aarch64-clang
           ls clang/bin/clang && clang/bin/clang --version
 
       - name: Build js engine
         working-directory: tree
         run: |
           # mach's state dir may hold virtualenvs built by an unsupported
-          # python; start clean and pin python3 via PATH (3.14).
+          # python; start clean.
           rm -rf "$HOME/.mozbuild"
-          export PATH="/usr/local/bin:$PWD/clang/bin:$PATH"
+          export PATH="$PWD/clang/bin:$PATH"
           export CC="$PWD/clang/bin/clang"
           export CXX="$PWD/clang/bin/clang++"
           "$CC" --version
-          python3 --version
-          python3 mach build
+          PY3="$(brew --prefix python@3.14)/bin/python3.14"
+          "$PY3" --version
+          "$PY3" mach build
 
       - name: Smoke (engine runs, offline page)
         run: |
