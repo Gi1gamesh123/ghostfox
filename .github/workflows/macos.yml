@@ -55,6 +55,10 @@ jobs:
           ac_add_options --enable-optimize
           ac_add_options --disable-debug
           ac_add_options --disable-jemalloc
+          # libc++ marks floating-point to_chars available(macos 13.3) and
+          # from_chars available(macos 15.4); the engine's SVG/CSS float
+          # serialization uses both. 15.4 covers the fleet (15.6+ / macOS 26).
+          ac_add_options --enable-macos-target=15.4
           mk_add_options MOZ_MAKE_FLAGS="-j$(sysctl -n hw.ncpu)"
           EOF
 
