@@ -16,6 +16,7 @@ package necko
 
 import (
 	"bufio"
+	"crypto/tls"
 	"bytes"
 	"encoding/binary"
 	"fmt"
@@ -44,15 +45,20 @@ type Worker struct {
 // New builds a Worker honouring GHOSTFOX_PROXY / RUYIJS_HTTP_PROXY (the
 // engine forwards the Context proxy through the child environment).
 func New() *Worker {
+	// h1.1 钉死：Google 前端对 Go-h2 的 /search 连接直接掐断（EOF，2026-10-28
+	// mac 实测 h2=EOF / h1=200），ForceAttemptHTTP2 会连 GODEBUG=http2client=0
+	// 一起绕过，必须在 TLSConfig 层钉死 NextProtos。
 	transport := &http.Transport{
-		ForceAttemptHTTP2: true,
+		ForceAttemptHTTP2: false,
 		MaxIdleConns:      64,
 		IdleConnTimeout:   90 * time.Second,
+		TLSClientConfig:   &tls.Config{NextProtos: []string{"http/1.1"}},
 		Proxy: func(*http.Request) (*url.URL, error) {
 			return proxyFromEnv(), nil
 		},
 	}
-	return &Worker{Client: &http.Client{Transport: transport}, BodyMax: defaultLimit}
+	// Timeout 兜底：出口黑洞时传输永久阻塞会拖死整条求解链（2026-10-28 实测）
+	return &Worker{Client: &http.Client{Transport: transport, Timeout: 45 * time.Second}, BodyMax: defaultLimit}
 }
 
 func readText(r *bufio.Reader) (string, error) {
