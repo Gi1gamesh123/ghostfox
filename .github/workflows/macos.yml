@@ -6,21 +6,32 @@ on:
 
 jobs:
   build-macos:
+    # FF158 pins macOS SDK >= 26.5; macos-26 image has Xcode 26.6 (SDK 26.6).
+    # Linker: Apple ld from the selected Xcode, driven by Mozilla's clang —
+    # the same pairing releng uses for native mac builds.
     runs-on: macos-26
-    timeout-minutes: 120
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
       - name: Toolchain
         run: |
-          brew install llvm@19 rust cbindgen node python@3.12
-          echo "$(brew --prefix llvm@19)/bin" >> "$GITHUB_PATH"
+          brew install rust cbindgen node python@3.12
           mkdir -p /usr/local/bin
           ln -sf "$(brew --prefix python@3.12)/bin/python3.12" /usr/local/bin/python3
           ln -sf "$(brew --prefix python@3.12)/bin/python3.12" /usr/local/bin/python
           python3 --version
           xcodebuild -version
-          xcode-select -p
+          xcrun --show-sdk-version
+
+      - name: SDK gate
+        run: |
+          SDK=$(xcrun --show-sdk-version)
+          NEED=26.5
+          if [ "$(printf '%s\n' "$NEED" "$SDK" | sort -V | head -1)" != "$NEED" ]; then
+            echo "::error::macOS SDK $SDK is older than the required $NEED (FF158 pin). Select a newer Xcode."
+            exit 1
+          fi
 
       - name: Fetch Firefox 158 source
         run: |
@@ -38,8 +49,13 @@ jobs:
           ac_add_options --enable-js-shell
           ac_add_options --enable-optimize
           ac_add_options --disable-debug
+          ac_add_options --disable-jemalloc
           mk_add_options MOZ_MAKE_FLAGS="-j$(sysctl -n hw.ncpu)"
           EOF
+
+      - name: Fetch Mozilla clang 19
+        working-directory: tree
+        run: python3 mach artifact toolchain --from-build macosx64-clang 2>&1 | tail -5
 
       - name: Build js engine
         working-directory: tree
@@ -47,12 +63,28 @@ jobs:
           # mach's state dir may hold virtualenvs built by an unsupported
           # python; start clean and pin python3 via PATH (3.12).
           rm -rf "$HOME/.mozbuild"
-          export PATH="$(brew --prefix llvm@19)/bin:/usr/local/bin:$PATH"
-          export CC="$(brew --prefix llvm@19)/bin/clang"
-          export CXX="$(brew --prefix llvm@19)/bin/clang++"
-          export CARGO_HOME="$HOME/.cargo"
+          export PATH="$PWD/clang/bin:/usr/local/bin:$PATH"
+          export CC="$PWD/clang/bin/clang"
+          export CXX="$PWD/clang/bin/clang++"
+          "$CC" --version
           python3 --version
           python3 mach build
+
+      - name: Smoke (engine runs, offline page)
+        run: |
+          command -v go >/dev/null || brew install -q go
+          SHELL_BIN=$(ls tree/obj-*/dist/bin/js | head -1)
+          SHELL_DIR=$(dirname "$SHELL_BIN")
+          go build -o "$SHELL_DIR/ghostfox-worker" ./go/cmd/necko-worker
+          go build -o /tmp/ghostfox-smoke ./go/cmd/smoke
+          GHOSTFOX_SHELL="$SHELL_BIN" /tmp/ghostfox-smoke
+
+      - name: Navtest (real Necko fetch via worker)
+        continue-on-error: true
+        run: |
+          SHELL_BIN=$(ls tree/obj-*/dist/bin/js | head -1)
+          go build -o /tmp/ghostfox-navtest ./go/cmd/navtest
+          RUYIJS_SHELL="$SHELL_BIN" /tmp/ghostfox-navtest
 
       - name: Upload engine
         uses: actions/upload-artifact@v4
