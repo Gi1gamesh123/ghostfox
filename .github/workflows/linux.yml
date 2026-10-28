@@ -42,10 +42,11 @@ jobs:
           export PATH="$PWD/clang/bin:$HOME/.cargo/bin:$PATH"
           export CC="$PWD/clang/bin/clang"
           export CXX="$PWD/clang/bin/clang++"
-          python3 mach build 2>&1 | tail -40
+          python3 mach build
 
       - name: Upload engine
         uses: actions/upload-artifact@v4
         with:
           name: ghostfox-js-linux
           path: tree/obj-*/dist/bin/js
+          if-no-files-found: error

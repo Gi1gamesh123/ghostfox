@@ -7,14 +7,18 @@ on:
 jobs:
   build-macos:
     runs-on: macos-14
-    timeout-minutes: 90
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
       - name: Toolchain
         run: |
-          brew install llvm@19 rust cbindgen node
+          brew install llvm@19 rust cbindgen node python@3.12
           echo "$(brew --prefix llvm@19)/bin" >> "$GITHUB_PATH"
+          mkdir -p /usr/local/bin
+          ln -sf "$(brew --prefix python@3.12)/bin/python3.12" /usr/local/bin/python3
+          ln -sf "$(brew --prefix python@3.12)/bin/python3.12" /usr/local/bin/python
+          python3 --version
 
       - name: Fetch Firefox 158 source
         run: |
@@ -38,14 +42,19 @@ jobs:
       - name: Build js engine
         working-directory: tree
         run: |
-          export PATH="$(brew --prefix llvm@19)/bin:$PATH"
+          # mach's state dir may hold virtualenvs built by an unsupported
+          # python; start clean and pin python3 via PATH (3.12).
+          rm -rf "$HOME/.mozbuild"
+          export PATH="$(brew --prefix llvm@19)/bin:/usr/local/bin:$PATH"
           export CC="$(brew --prefix llvm@19)/bin/clang"
           export CXX="$(brew --prefix llvm@19)/bin/clang++"
           export CARGO_HOME="$HOME/.cargo"
-          python3 mach build 2>&1 | tail -40
+          python3 --version
+          python3 mach build
 
       - name: Upload engine
         uses: actions/upload-artifact@v4
         with:
           name: ghostfox-js-macos
           path: tree/obj-*/dist/bin/js
+          if-no-files-found: error
