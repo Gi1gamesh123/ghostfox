@@ -55,7 +55,11 @@ jobs:
 
       - name: Fetch Mozilla clang 19
         working-directory: tree
-        run: python3 mach artifact toolchain --from-build macosx64-clang 2>&1 | tail -5
+        run: |
+          # aarch64 runner: the arm64 flavor of Mozilla's clang (the x64
+          # label extracts nothing usable here).
+          python3 mach artifact toolchain --from-build macosx64-aarch64-clang
+          ls clang/bin/clang && clang/bin/clang --version
 
       - name: Build js engine
         working-directory: tree

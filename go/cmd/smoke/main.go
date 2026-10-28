@@ -1,16 +1,18 @@
-// ghostfox stdio-RPC smoke test.
+// ghostfox stdio-RPC smoke test. Engine from RUYIJS_SHELL (or WithShell
+// fallback / beside-the-executable discovery).
 package main
 
 import (
 	"fmt"
 	"log"
+	"os"
 
 	ghostfox "ghostfox/ghostfox"
 )
 
 func main() {
 	ctx, err := ghostfox.New(
-		ghostfox.WithShell(`E:\ruyi-clone\firefox-158.0\obj-x86_64-pc-windows-msvc\dist\bin\js.exe`),
+		ghostfox.WithShell(os.Getenv("RUYIJS_SHELL")),
 		ghostfox.WithTimeout(30e9),
 	)
 	if err != nil {
