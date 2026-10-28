@@ -1,0 +1,54 @@
+{
+  "schema": "ruyijs.application-source-map.v1",
+  "files": [
+    {
+      "source": "src/application/app_services.h",
+      "target": "src/application/domain.h",
+      "source_sha256": "c4ea1271665e861b67ac36dbe4389a441673cfba0298418a0752f0844c1e7d78",
+      "target_sha256": "b8e5ecda40ae2245d116e13ea03f5e3b0ad18689e6a63b9e7560af68a25324b3",
+      "transformation": "Bind the existing domain namespace only."
+    },
+    {
+      "source": "src/application/app_services.h",
+      "target": "src/application/engine_port.h",
+      "source_sha256": "c4ea1271665e861b67ac36dbe4389a441673cfba0298418a0752f0844c1e7d78",
+      "target_sha256": "ab29cca425ebd38f89d0c6db08b5e623252cc27a45f7e94de319ccdc34ebd58f",
+      "transformation": "Extract JsEnginePort unchanged into ruyijs::application; keep only used includes."
+    },
+    {
+      "source": "src/application/app_services.h",
+      "target": "src/application/context_lifecycle.h",
+      "source_sha256": "c4ea1271665e861b67ac36dbe4389a441673cfba0298418a0752f0844c1e7d78",
+      "target_sha256": "e5e1f04a078dd2ed14a2dac831202c28cbe56c4f4d89efaea9b2cc49ea8cb423",
+      "transformation": "Extract ContextLifecycleAppService unchanged into ruyijs::application; keep only used includes."
+    },
+    {
+      "source": "src/application/app_services.h",
+      "target": "src/application/network_intercept.h",
+      "source_sha256": "c4ea1271665e861b67ac36dbe4389a441673cfba0298418a0752f0844c1e7d78",
+      "target_sha256": "543b7af1a6faf2b5731c0dfb5411fb37686732872332993f17e0850f0d3be2ea",
+      "transformation": "Extract NetworkInterceptAppService unchanged into ruyijs::application; keep only used includes."
+    },
+    {
+      "source": "src/application/app_services.h",
+      "target": "src/application/event_loop_control.h",
+      "source_sha256": "c4ea1271665e861b67ac36dbe4389a441673cfba0298418a0752f0844c1e7d78",
+      "target_sha256": "f088b9fe275f9e4e3470e355f4428722bd5a592680c6b9e1b223f7ba81777762",
+      "transformation": "Extract EventLoopControlAppService unchanged into ruyijs::application; keep only used includes."
+    },
+    {
+      "source": "src/application/dto/dto.h",
+      "target": "src/application/dto.h",
+      "source_sha256": "3793babde9c204bc09d97ad5d455337be35a44487b6d02eb9f37c85c05da3e0f",
+      "target_sha256": "7554fd3ab5d4238064c3fb0f44f3c1eacb4dd4047d98bb3c67af033cfa5613f7",
+      "transformation": "Extract ResourceDto, EnvironmentDto and ContextConfigDto; rename namespace and default product API to __ruyijs__."
+    },
+    {
+      "source": "src/application/app_services.h",
+      "target": "src/application/app_services.h",
+      "source_sha256": "c4ea1271665e861b67ac36dbe4389a441673cfba0298418a0752f0844c1e7d78",
+      "target_sha256": "94739dc2e373d4cbc06563d1474101c3445234bf59440cf2fba7449f007f2d50",
+      "transformation": "Include the three migrated services; exclude unused platform/observability headers and the obsolete PageLoad placeholder."
+    }
+  ]
+}

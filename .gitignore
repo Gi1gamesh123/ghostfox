@@ -1,0 +1,8 @@
+*.tar.xz
+firefox-158.0/
+tree/
+obj-*/
+*.o
+*.a
+__pycache__/
+venv/

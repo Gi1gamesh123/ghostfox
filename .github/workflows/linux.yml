@@ -1,0 +1,51 @@
+name: ghostfox-linux
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential curl python3
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+          cargo install cbindgen
+
+      - name: Fetch Firefox 158 source
+        run: |
+          curl -L -o ff.tar.xz "https://archive.mozilla.org/pub/firefox/releases/158.0/source/firefox-158.0.source.tar.xz"
+          tar xf ff.tar.xz
+          mv firefox-158.0 tree
+
+      - name: Overlay ghostfox sources
+        run: |
+          cp -r overlay/js/src/shell/. tree/js/src/shell/
+          cp -r overlay/js/src/vm/.    tree/js/src/vm/
+          cp -r overlay/config/.       tree/config/
+          cp mozconfigs/mozconfig.linux tree/mozconfig
+
+      - name: Fetch Mozilla clang 19
+        working-directory: tree
+        run: python3 mach artifact toolchain --from-build linux64-clang 2>&1 | tail -5
+
+      - name: Build js engine
+        working-directory: tree
+        run: |
+          export PATH="$PWD/clang/bin:$HOME/.cargo/bin:$PATH"
+          export CC="$PWD/clang/bin/clang"
+          export CXX="$PWD/clang/bin/clang++"
+          python3 mach build 2>&1 | tail -40
+
+      - name: Upload engine
+        uses: actions/upload-artifact@v4
+        with:
+          name: ghostfox-js-linux
+          path: tree/obj-*/dist/bin/js

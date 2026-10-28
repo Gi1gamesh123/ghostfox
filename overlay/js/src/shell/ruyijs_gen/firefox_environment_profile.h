@@ -1,0 +1,160 @@
+/* ruyi-clone: default browser environment baseline, extracted
+ * from the original ruyiJS 0.1.3 js.exe via its defaults RPC op. */
+#ifndef RUYIJS_FIREFOX_ENVIRONMENT_PROFILE_H
+#define RUYIJS_FIREFOX_ENVIRONMENT_PROFILE_H
+inline const char kFirefoxEnvironmentProfile[] = R"JSON({
+ "navigator": {
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:158.0) Gecko/20100101 Firefox/158.0",
+  "platform": "Win32",
+  "appCodeName": "Mozilla",
+  "appName": "Netscape",
+  "appVersion": "5.0 (Windows)",
+  "product": "Gecko",
+  "productSub": "20100101",
+  "vendor": "",
+  "vendorSub": "",
+  "language": "en-US",
+  "languages": [
+   "en-US",
+   "en"
+  ],
+  "hardwareConcurrency": 24,
+  "maxTouchPoints": 0,
+  "cookieEnabled": true,
+  "webdriver": false,
+  "oscpu": "Windows NT 10.0; Win64; x64",
+  "buildID": "20181001000000",
+  "doNotTrack": "unspecified",
+  "pdfViewerEnabled": true,
+  "onLine": true,
+  "globalPrivacyControl": false
+ },
+ "screen": {
+  "width": 1366,
+  "height": 768,
+  "availWidth": 1366,
+  "availHeight": 720,
+  "availLeft": 0,
+  "availTop": 0,
+  "colorDepth": 24,
+  "pixelDepth": 24,
+  "top": 0,
+  "left": 0
+ },
+ "viewport": {
+  "width": 1366,
+  "height": 683,
+  "devicePixelRatio": 1
+ },
+ "location": {
+  "href": "https://example.test/path?x=1#section"
+ },
+ "locale": {
+  "timezone": "Asia/Shanghai"
+ },
+ "webgl": {
+  "vendor": "Mozilla",
+  "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar",
+  "version": "WebGL 1.0",
+  "glslVersion": "WebGL GLSL ES 1.0",
+  "unmaskedVendor": "Google Inc. (NVIDIA)",
+  "unmaskedRenderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 980 Direct3D11 vs_5_0 ps_5_0), or similar",
+  "version2": "WebGL 2.0",
+  "glslVersion2": "WebGL GLSL ES 3.00",
+  "attributes": {
+   "alpha": true,
+   "antialias": true,
+   "depth": true,
+   "failIfMajorPerformanceCaveat": false,
+   "powerPreference": "default",
+   "premultipliedAlpha": true,
+   "preserveDrawingBuffer": false,
+   "stencil": false
+  },
+  "extensions": [
+   "ANGLE_instanced_arrays",
+   "EXT_blend_minmax",
+   "EXT_color_buffer_half_float",
+   "EXT_depth_clamp",
+   "EXT_float_blend",
+   "EXT_frag_depth",
+   "EXT_polygon_offset_clamp",
+   "EXT_shader_texture_lod",
+   "EXT_sRGB",
+   "EXT_texture_compression_bptc",
+   "EXT_texture_compression_rgtc",
+   "EXT_texture_filter_anisotropic",
+   "OES_element_index_uint",
+   "OES_fbo_render_mipmap",
+   "OES_standard_derivatives",
+   "OES_texture_float",
+   "OES_texture_float_linear",
+   "OES_texture_half_float",
+   "OES_texture_half_float_linear",
+   "OES_vertex_array_object",
+   "WEBGL_color_buffer_float",
+   "WEBGL_compressed_texture_s3tc",
+   "WEBGL_compressed_texture_s3tc_srgb",
+   "WEBGL_debug_renderer_info",
+   "WEBGL_debug_shaders",
+   "WEBGL_depth_texture",
+   "WEBGL_draw_buffers",
+   "WEBGL_lose_context",
+   "WEBGL_provoking_vertex"
+  ],
+  "extensions2": [
+   "EXT_color_buffer_float",
+   "EXT_depth_clamp",
+   "EXT_float_blend",
+   "EXT_polygon_offset_clamp",
+   "EXT_texture_compression_bptc",
+   "EXT_texture_compression_rgtc",
+   "EXT_texture_filter_anisotropic",
+   "OES_draw_buffers_indexed",
+   "OES_texture_float_linear",
+   "OVR_multiview2",
+   "WEBGL_compressed_texture_s3tc",
+   "WEBGL_compressed_texture_s3tc_srgb",
+   "WEBGL_debug_renderer_info",
+   "WEBGL_debug_shaders",
+   "WEBGL_lose_context",
+   "WEBGL_provoking_vertex"
+  ],
+  "limits": {}
+ },
+ "media": {
+  "devices": [
+   "audioinput|||"
+  ],
+  "decoding": {
+   "video/webm; codecs=\"vp9\"": {
+    "supported": true,
+    "smooth": true,
+    "powerEfficient": false
+   }
+  }
+ },
+ "storage": {
+  "quota": 2147483648,
+  "usage": 0,
+  "persisted": false
+ },
+ "speech": {
+  "voices": [
+   "Microsoft Huihui - Chinese (Simplified, PRC)",
+   "Microsoft Kangkang - Chinese (Simplified, PRC)",
+   "Microsoft Yaoyao - Chinese (Simplified, PRC)",
+   "Microsoft Huihui Desktop - Chinese (Simplified)",
+   "Microsoft Zira Desktop - English (United States)"
+  ],
+  "langs": [
+   "zh-CN",
+   "zh-CN",
+   "zh-CN",
+   "zh-CN",
+   "en-US"
+  ],
+  "default": ""
+ }
+})JSON";
+#endif

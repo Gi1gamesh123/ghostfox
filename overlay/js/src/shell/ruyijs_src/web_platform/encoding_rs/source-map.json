@@ -1,0 +1,30 @@
+{
+  "library": "Existing donor jsrust.lib",
+  "files": [
+    {
+      "source": "D:\\firefox\\src\\firefox\\third_party\\rust\\encoding_c\\include\\encoding_rs.h",
+      "target": "src\\web_platform\\encoding_rs\\encoding_rs.h",
+      "sha256": "328efc1a6ee9f0fb81b1db5286f24c0cdbcabcaa123d8b209c0000ba2d618c7f"
+    },
+    {
+      "source": "D:\\firefox\\src\\firefox\\third_party\\rust\\encoding_c\\include\\encoding_rs_statics.h",
+      "target": "src\\web_platform\\encoding_rs\\encoding_rs_statics.h",
+      "sha256": "96a2595ad7e209a5f393e61d46899ec484329693ac164455074e041482625c9d"
+    },
+    {
+      "source": "D:\\firefox\\src\\firefox\\third_party\\rust\\encoding_c\\COPYRIGHT",
+      "target": "src\\web_platform\\encoding_rs\\COPYRIGHT",
+      "sha256": "6c7cd6277ece1edbc9f653eb1812bb98dc7ada4137525f0612938490f7819d9a"
+    },
+    {
+      "source": "D:\\firefox\\src\\firefox\\third_party\\rust\\encoding_c\\LICENSE-MIT",
+      "target": "src\\web_platform\\encoding_rs\\LICENSE-MIT",
+      "sha256": "3fa4ca83dcc9237839b1bdeb2e6d16bdfb5ec0c5ce42b24694d8bbf0dcbef72c"
+    },
+    {
+      "source": "D:\\firefox\\src\\firefox\\third_party\\rust\\encoding_c\\LICENSE-APACHE",
+      "target": "src\\web_platform\\encoding_rs\\LICENSE-APACHE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+  ]
+}

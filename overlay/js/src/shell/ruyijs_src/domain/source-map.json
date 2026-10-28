@@ -1,0 +1,460 @@
+{
+  "owners": [
+    "BrowserEnvironmentAggregate",
+    "InputSimulationService",
+    "DomEvent",
+    "EventTargetAggregate",
+    "EventDispatchService",
+    "DocumentAggregate",
+    "Node",
+    "Element",
+    "DomTreeService",
+    "ElementFactory",
+    "EventLoopAggregate",
+    "Task",
+    "TaskSchedulerService",
+    "TimeControlService",
+    "ResourceBundleAggregate",
+    "Resource",
+    "NetLog",
+    "ResourceMatcherService",
+    "LiveRequestTable",
+    "HttpHeaders"
+  ],
+  "files": [
+    {
+      "source": "src/domain/browser_environment/browser_environment.h",
+      "target": "src/domain/browser_environment/browser_environment.h",
+      "source_sha256": "d83e3d177c904e3652079078ecc2fb7177ca51d76430bc2f091733cbd67b258b",
+      "target_sha256": "dc36898f661b011e02676f82b276cea630637a59b08632395f0617ca0cc312ed",
+      "transformation": "T10-Location-navigation:-the-HistoryInfo-session-history-owner-gains-scrollRestoration-(default-auto,-settable)-and-the-aggregate-gains-replace_navigation-for-Location.replace/reload;-Location.assign/href/component-setters-reuse-navigate_to.-No-second-container-or-parser."
+    },
+    {
+      "source": "src/domain/browser_environment/navigator_info.h",
+      "target": "src/domain/browser_environment/navigator_info.h",
+      "source_sha256": "08fa35df77698375ca7bcc8b980f6693d94be726cd4d0b485d63517590e15d43",
+      "target_sha256": "08fa35df77698375ca7bcc8b980f6693d94be726cd4d0b485d63517590e15d43",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/browser_environment/navigator_capabilities.h",
+      "target": "src/domain/browser_environment/navigator_capabilities.h",
+      "source_sha256": "be13dfa76ae8ea5ad80854cf65f87aeb5541341c44096ceba0e08d5ff4ab931d",
+      "target_sha256": "be13dfa76ae8ea5ad80854cf65f87aeb5541341c44096ceba0e08d5ff4ab931d",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/browser_environment/screen_info.h",
+      "target": "src/domain/browser_environment/screen_info.h",
+      "source_sha256": "0d55bfcb118a8d94d06741849d17cd450bac4f13663f50bc79bb86828ba2894d",
+      "target_sha256": "0d55bfcb118a8d94d06741849d17cd450bac4f13663f50bc79bb86828ba2894d",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/browser_environment/location_info.h",
+      "target": "src/domain/browser_environment/location_info.h",
+      "source_sha256": "b303bf4438fc14207452501b1a53b5ba0c36698a53bbf54426b7387dc820324f",
+      "target_sha256": "b9997b9502239a83bcc9c67369b553ed198052f9fe4f415c412a374eecea50c1",
+      "transformation": "T10 Location navigation: the HistoryInfo session-history owner gains the scrollRestoration enum (Firefox default auto, settable) and the aggregate gains replace_navigation (replace the current document entry without changing the length, for Location.replace/reload); Location.assign/href/component setters reuse the existing navigate_to, which already appends a document entry. No second container or parser: the same BrowserEnvironmentAggregate and HistoryInfo own every entry, and UrlValue stays the single URL parser."
+    },
+    {
+      "source": "src/domain/browser_environment/url_value.h",
+      "target": "src/domain/browser_environment/url_value.h",
+      "source_sha256": "e07172d17b113b320630fcd0606bd63c521c7038f1a713b960ddbb923056d9e8",
+      "target_sha256": "418ff76cb79b3a14fccad7e2a7f6ee72b1f6e26515b4e3a3f2dfc5f25e6a7a92",
+      "transformation": "Document Model hyperlink members use sole UrlValue for Firefox userinfo encoding and mutation; preserve password-only authority serialization Typed source prerequisite: expose the original origin algorithm as OriginValue; preserve serialization and scheme policy."
+    },
+    {
+      "source": "src/domain/browser_environment/locale_info.h",
+      "target": "src/domain/browser_environment/locale_info.h",
+      "source_sha256": "a956ac0979221cdea2fb039de54ecbc35cdb66d130d86b085411be1a9bfa8391",
+      "target_sha256": "99c8c69960a4277b7c78a632abdf4120f4f382d3f7966894e5a1764f110955a6",
+      "transformation": "Add timezone-only configuration through the existing LocaleInfo owner; preserve legacy offset configuration and track sampled-offset validity. Native Date/Intl use realm timezone rules, never a fixed sampled offset."
+    },
+    {
+      "source": "src/domain/browser_environment/fingerprint_config.h",
+      "target": "src/domain/browser_environment/fingerprint_config.h",
+      "source_sha256": "3ea0cdba4401f144f789367e75c3461c50fb80eb263fdf58cac08dc3ff7e7bd4",
+      "target_sha256": "3ea0cdba4401f144f789367e75c3461c50fb80eb263fdf58cac08dc3ff7e7bd4",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/browser_environment/fingerprint_merge_service.h",
+      "target": "src/domain/browser_environment/fingerprint_merge_service.h",
+      "source_sha256": "5d41c134b9fee3a42642031751159cfd5609d0ddfb68b619dbf3c4a96d367d75",
+      "target_sha256": "5d41c134b9fee3a42642031751159cfd5609d0ddfb68b619dbf3c4a96d367d75",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/shared/aggregate_root.h",
+      "target": "src/domain/shared/aggregate_root.h",
+      "source_sha256": "2d66f6ab53e8c5563223cac43791261628831995b078356a0d4201a9759c8232",
+      "target_sha256": "2d66f6ab53e8c5563223cac43791261628831995b078356a0d4201a9759c8232",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/shared/entity.h",
+      "target": "src/domain/shared/entity.h",
+      "source_sha256": "3077f533d16fa940321a54075a9e1766051d6934a71ecb33d516889f28276b31",
+      "target_sha256": "3077f533d16fa940321a54075a9e1766051d6934a71ecb33d516889f28276b31",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/shared/domain_event.h",
+      "target": "src/domain/shared/domain_event.h",
+      "source_sha256": "5d55cef8ab996d34edcfa25a33bf0e1e360caf0d11b9dbd28ec0b474ef386084",
+      "target_sha256": "5d55cef8ab996d34edcfa25a33bf0e1e360caf0d11b9dbd28ec0b474ef386084",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/interaction/input_simulation_service.h",
+      "target": "src/domain/interaction/input_simulation_service.h",
+      "source_sha256": "09015ed2aa4567aff998c0d4e73ba25ab9b0ea5024e793dfddd73516b339a30e",
+      "target_sha256": "905625400c2af16945942d04287b18a751d47fd6cfb26e84b953bfff34ec6eef",
+      "transformation": "byte-identical Move the MouseEventInit/KeyboardEventInit dictionaries to domain/interaction/dom_event.h so every event subclass shares one init owner; the input simulation now reads the shared defaults."
+    },
+    {
+      "source": "src/domain/interaction/events.h",
+      "target": "src/domain/interaction/events.h",
+      "source_sha256": "cf3439d939f1ca68beb4e141d2e681e3b152e86c39ba7778cd1ccfcbcd8a7e76",
+      "target_sha256": "cf3439d939f1ca68beb4e141d2e681e3b152e86c39ba7778cd1ccfcbcd8a7e76",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/interaction/event_phase.h",
+      "target": "src/domain/interaction/event_phase.h",
+      "source_sha256": "e48b4c0ac1858c52aaf0155026104898bd6ae06465b6c55ae2d1052bdff0e8f8",
+      "target_sha256": "e48b4c0ac1858c52aaf0155026104898bd6ae06465b6c55ae2d1052bdff0e8f8",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/interaction/event_target.h",
+      "target": "src/domain/interaction/event_target.h",
+      "source_sha256": "f4c194b141927a2de3363e9636f9a99bc598ced8b559feaac7d179efc21a0fa9",
+      "target_sha256": "cdd80728a0208f07b9196521575762fa32e49ed3f07e47cabfb96fe509629b49",
+      "transformation": "Add listener-ID snapshots and copied live-entry lookup; add Firefox wants_untrusted option; preserve original source contracts."
+    },
+    {
+      "source": "src/domain/interaction/dom_event.h",
+      "target": "src/domain/interaction/dom_event.h",
+      "source_sha256": "48b75138a4d6f68edebe0b892eb92def394a72af3cd375c4a6ba89e81551b09f",
+      "target_sha256": "a6c638aee749c23783469697fde2c37b7eded0cade1ad2c54389c3a68ed4dd34",
+      "transformation": "Public legacy event initialization preserves dispatch scope while updating original state Add Firefox initialized flag: native constructors remain initialized; legacy factory marks uninitialized; existing init paths initialize."
+    },
+    {
+      "source": "src/domain/interaction/event_dispatch_service.h",
+      "target": "src/domain/interaction/event_dispatch_service.h",
+      "source_sha256": "10ed99b08e4c774e94cea167a8cb01267cd1eaff41771ca65324fa686253fc02",
+      "target_sha256": "590a244f888eb6a0cee975c3b5b035b40b79401e05ac9b4957c59436ca31d9e8",
+      "transformation": "Snapshot listener IDs and callbacks; remove once before invocation; validate live listeners; bound path; Firefox target propagation and trust filters; clear per-dispatch state. Reject legacy uninitialized events through the original dispatch owner. Use one lookup-based dispatch algorithm for both the original map entry and realm-owned registries; resolve live callbacks per invocation without copying listener state."
+    },
+    {
+      "source": "src/domain/document_model/element.h",
+      "target": "src/domain/document_model/character_data.h",
+      "source_sha256": "214512ffd3a0a8a384a9b99b6d16f17856fe2723066186d69dd26c78743d8d9c",
+      "target_sha256": "aef1b9d9f43fa129bd1ab0df8266e6c8fb936140ea071dbd89afb68b0c27d8cc",
+      "transformation": "Split Text/Comment from element.h; use shared UTF-16 CharacterData state and transactional code-unit substring/replacement."
+    },
+    {
+      "source": "src/domain/document_model/document.h",
+      "target": "src/domain/document_model/document.h",
+      "source_sha256": "18af3cbb88981c32e6c63bde90a45e8f59107c55843a07ee37c9d7b22be29d86",
+      "target_sha256": "5aaeeae6caf02a8b4a0dba416c6014d01aff5b9c85d81986398dda22044d07c7",
+      "transformation": "Stage76: original DocumentAggregate ShadowRootNode/host ownership, Firefox attach/clone/adopt and lifetime tree traversal; existing light-tree behavior retained; Firefox157 namespace extension uses the original TagName value, ElementFactory, query and serializer; no second node tree. Reference 20261010T094313Z."
+    },
+    {
+      "source": "src/domain/document_model/document.h",
+      "target": "src/domain/document_model/document_query.h",
+      "source_sha256": "18af3cbb88981c32e6c63bde90a45e8f59107c55843a07ee37c9d7b22be29d86",
+      "target_sha256": "00a1bb14667c68ecf06e8494c580faa669043e391b3dcef9fae33bd181212f48",
+      "transformation": "Slice43 original document metadata selects public HTML syntax for DOMParser XML MIME; same node factory and query owner, original new Document semantics preserved.; Firefox157 namespace extension uses the original TagName value, ElementFactory, query and serializer; no second node tree. Reference 20261010T094313Z."
+    },
+    {
+      "source": "src/domain/document_model/dom_tree_service.h",
+      "target": "src/domain/document_model/document_text.h",
+      "source_sha256": "b92c7abd9816d80fa9bb76d4e9b3adcb553f5f5058e48db4799b87c186df7052",
+      "target_sha256": "d3b78207d2ee2fa2a8791b68f290335b22ded2a914baf1b07d7626b0746ec08e",
+      "transformation": "Iterative UTF-16 textContent and transactional replacement; removal detaches old children instead of destroying their identities."
+    },
+    {
+      "source": "src/domain/document_model/document.h",
+      "target": "src/domain/document_model/document_tree.h",
+      "source_sha256": "18af3cbb88981c32e6c63bde90a45e8f59107c55843a07ee37c9d7b22be29d86",
+      "target_sha256": "981177d86bf86f8485c3032dc95f698d56567cb99844b39dcd7da679c9de4ffb",
+      "transformation": "Stage76: original DocumentAggregate ShadowRootNode/host ownership, Firefox attach/clone/adopt and lifetime tree traversal; existing light-tree behavior retained"
+    },
+    {
+      "source": "src/domain/document_model/dom_tree_service.h",
+      "target": "src/domain/document_model/dom_ports.h",
+      "source_sha256": "b92c7abd9816d80fa9bb76d4e9b3adcb553f5f5058e48db4799b87c186df7052",
+      "target_sha256": "7b363c9ab32da9f381d5d6b35b0dccf4ae5a01d6b0b6a68105e31a3dcd3de352",
+      "transformation": "Preserve HtmlParserPort and NodeRepository abstractions as source UTF-8 DTO ports; they are not production node stores."
+    },
+    {
+      "source": "src/domain/document_model/node_type.h",
+      "target": "src/domain/document_model/dom_string.h",
+      "source_sha256": "dd83d56835ceed52bc2a38d412b3e85d525d9ce635d9622d275afe3a0a0efb55",
+      "target_sha256": "8e0ed5efcc15cc280570627c7488998e803144aeb88a4f9bb54949425c96af08",
+      "transformation": "Introduce sole UTF-16 code-unit representation plus strict legacy UTF-8 DTO conversions, ASCII folding, tokens and donor-specific relaxed element/attribute local-name validation; retain XML-style validation only for custom-element-name eligibility."
+    },
+    {
+      "source": "src/domain/document_model/dom_tree_service.h",
+      "target": "src/domain/document_model/dom_tree_service.h",
+      "source_sha256": "b92c7abd9816d80fa9bb76d4e9b3adcb553f5f5058e48db4799b87c186df7052",
+      "target_sha256": "8ded2740180239e313bb7a34cc577b8c1e880f24caa19624c37da6ef821b97be",
+      "transformation": "Stage83: original Element InputCheckState, null namespace checked defaults, dirty/indeterminate clone semantics; original tree, factory and attribute identity retained; Firefox157 namespace extension uses the original TagName value, ElementFactory, query and serializer; no second node tree. Reference 20261010T094313Z."
+    },
+    {
+      "source": "src/domain/document_model/element.h",
+      "target": "src/domain/document_model/element.h",
+      "source_sha256": "214512ffd3a0a8a384a9b99b6d16f17856fe2723066186d69dd26c78743d8d9c",
+      "target_sha256": "0c1a000553a60b9a985c8593955184421739ba51a5ac8bd76abb8910d38dd668",
+      "transformation": "Stage83: original Element InputCheckState, null namespace checked defaults, dirty/indeterminate clone semantics; original tree, factory and attribute identity retained; Firefox157 namespace extension uses the original TagName value, ElementFactory, query and serializer; no second node tree. Reference 20261010T094313Z."
+    },
+    {
+      "source": "src/domain/document_model/dom_tree_service.h",
+      "target": "src/domain/document_model/element_factory.h",
+      "source_sha256": "b92c7abd9816d80fa9bb76d4e9b3adcb553f5f5058e48db4799b87c186df7052",
+      "target_sha256": "f1bf5c2e90d5b8bbfeed25495ac777d9001d17b874fc26bc1bcbc57099e5a9b2",
+      "transformation": "Slice41 public createDocument custom-looking unknown roots also use Element; ordinary custom element factory is preserved.; Firefox157 namespace extension uses the original TagName value, ElementFactory, query and serializer; no second node tree. Reference 20261010T094313Z."
+    },
+    {
+      "source": "src/domain/document_model/events.h",
+      "target": "src/domain/document_model/events.h",
+      "source_sha256": "a29d146578158f2bf67d8e5e43e0c2c211970ce9cfd51729538abd63ebe3ef28",
+      "target_sha256": "bed46552ae28d1f5d7f8e7f1457548cc24b29403f25d54c2606a66e56f335888",
+      "transformation": "Preserve all source document events; persistent tag/source payloads use UTF-16 with strict legacy UTF-8 accessors."
+    },
+    {
+      "source": "src/domain/document_model/node.h",
+      "target": "src/domain/document_model/node.h",
+      "source_sha256": "b489d0edeb77c909fc3e4d6632e092dadcc3cbc84ab2237f84eee55eaab54484",
+      "target_sha256": "4cc15251f4a1779de66e9c3c55821b62f7445e574b4648b8aa46fa508262c6af",
+      "transformation": "Stage76: original DocumentAggregate ShadowRootNode/host ownership, Firefox attach/clone/adopt and lifetime tree traversal; existing light-tree behavior retained"
+    },
+    {
+      "source": "src/domain/document_model/node_type.h",
+      "target": "src/domain/document_model/node_type.h",
+      "source_sha256": "dd83d56835ceed52bc2a38d412b3e85d525d9ce635d9622d275afe3a0a0efb55",
+      "target_sha256": "f38a1bae026ef12709d61ac541f29c630085940c62c7f8ee09cd74ad09a1d047",
+      "transformation": "Slice41 original TagName retains public createDocument generic unknown root classification through original clone and transfer; regular element factories unchanged.; Firefox157 namespace extension uses the original TagName value, ElementFactory, query and serializer; no second node tree. Reference 20261010T094313Z."
+    },
+    {
+      "source": "src/domain/execution_scheduling/event_loop.h",
+      "target": "src/domain/execution_scheduling/event_loop.h",
+      "source_sha256": "326d382a15678d3e0cf8b02efbaf7de45b59e6b4e2c782f1752dfec06af6e4f9",
+      "target_sha256": "112654b051149459aa4cc099686d463a9d3663dfb766368442c8bd2cc08e89d7",
+      "transformation": "Retain source aggregate and original APIs; extract aggregate-owned ClockState, add live/eligible frame queries, preserve running identity, and publish task IDs only after successful insertion."
+    },
+    {
+      "source": "src/domain/execution_scheduling/task.h",
+      "target": "src/domain/execution_scheduling/task.h",
+      "source_sha256": "7e3750f1dc63e684495bd5727d70ce6e4a7426b84899bdf084f74fb7c87f69fd",
+      "target_sha256": "2ab376430d056fa523612d1080701da6dc16696292508c4ff296ea1893de14dd",
+      "transformation": "Retain source entity; add running/start/nesting metadata, mutable deadline, and TaskId tie-break ordering. Running/cancelled tasks are excluded from due selection."
+    },
+    {
+      "source": "src/domain/execution_scheduling/task_scheduler_service.h",
+      "target": "src/domain/execution_scheduling/task_scheduler_service.h",
+      "source_sha256": "8e75675d23ef0f256068fddf660505a97ae7552f762b14cc0ea35dd375c09b58",
+      "target_sha256": "8e75675d23ef0f256068fddf660505a97ae7552f762b14cc0ea35dd375c09b58",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/execution_scheduling/time_point.h",
+      "target": "src/domain/execution_scheduling/time_point.h",
+      "source_sha256": "d554f66c2e6d695e4ce01938c6d36a2c59b2112645ee02d9b8f8f1fd27bfb1e1",
+      "target_sha256": "d554f66c2e6d695e4ce01938c6d36a2c59b2112645ee02d9b8f8f1fd27bfb1e1",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/execution_scheduling/events.h",
+      "target": "src/domain/execution_scheduling/events.h",
+      "source_sha256": "ef44caf408d63867ff4ce360aca3ca7944daa158b8e7be58f0222505ebb4d5c6",
+      "target_sha256": "ef44caf408d63867ff4ce360aca3ca7944daa158b8e7be58f0222505ebb4d5c6",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/execution_scheduling/event_loop.h",
+      "target": "src/domain/execution_scheduling/clock_state.h",
+      "source_sha256": "326d382a15678d3e0cf8b02efbaf7de45b59e6b4e2c782f1752dfec06af6e4f9",
+      "target_sha256": "cef6c5106319ce0006028837c11fd08162e3e5de947956b3d1223a64d9408941",
+      "transformation": "Extract TimeMode and elapsed from source EventLoopAggregate into an aggregate-owned value; add epoch, timer nesting and active-frame timestamp/cutoff. No external runtime dependencies."
+    },
+    {
+      "source": "src/domain/resource_network/http_types.h",
+      "target": "src/domain/resource_network/http_types.h",
+      "source_sha256": "cd5ca0e06396c3b510829ac0c9e5ad26074a3be84f8d8528a116aa5d37a71fd9",
+      "target_sha256": "00e7b104880899b568f87e701dd1ef7e2532fb42e9344e42a1e3d1cd77504e3b",
+      "transformation": "Preserve method/status source behavior; delegate Headers to the unique ordered field-list owner."
+    },
+    {
+      "source": "src/domain/resource_network/resource_bundle.h",
+      "target": "src/domain/resource_network/resource_bundle.h",
+      "source_sha256": "f0ea0e072c52cf7d6eccbdc496fad409561eabf0788149655a6263c8ebb210a1",
+      "target_sha256": "02686f5b9285f0a2ee133f05c199594bfe169ed1795095f1eeaed5fe3b51f2cd",
+      "transformation": "Keep unique directory/log/live ownership; prepare candidate Resource before atomic replacement and publish ID after successful insertion. Open request prepares log before request insertion then commits nonthrowing. Completion checks log correlation before terminal transition; active logs are pinned. Directory clear only clears resources. Cache candidate: original aggregate owns origin-partitioned CacheStorageState; original clear_resources retains catalog-only meaning."
+    },
+    {
+      "source": "src/domain/resource_network/resource_bundle.h",
+      "target": "src/domain/resource_network/net_log.h",
+      "source_sha256": "f0ea0e072c52cf7d6eccbdc496fad409561eabf0788149655a6263c8ebb210a1",
+      "target_sha256": "e299e635ea59e14621283fc4e5640d66206f527435cdd07c6bbc494b650806bd",
+      "transformation": "Extract bounded NetLog with stable IDs. Reserve and allocate before publishing; private aggregate transaction helpers protect no-throw commit. Active requests pin clear; preserve original mark-last helper and expose per-ID completion. Target refreshed 2026-10-04: the header was edited by concurrent resource_network page-client work in the same worktree. The recorded extraction purpose is unchanged and the 33 resource_network domain tests were re-run green against this content; the edit's own design rationale was not re-derived here."
+    },
+    {
+      "source": "src/domain/resource_network/resource_bundle.h",
+      "target": "src/domain/resource_network/live_request.h",
+      "source_sha256": "f0ea0e072c52cf7d6eccbdc496fad409561eabf0788149655a6263c8ebb210a1",
+      "target_sha256": "6f8534de3b1448ab12aea7ec9b087f1a379fa6e3f7352b4732c45921f07acf7d",
+      "transformation": "Retain concurrent-session LiveRequestTable addition and source purpose; publish ID only after insertion, allocate redirect hop before state changes, enforce active/retained/hop/URL/byte limits and permit explicit terminal forgetting. No transport or JavaScript consumer claimed. Target refreshed 2026-10-04: the header was edited by concurrent resource_network page-client work in the same worktree. The recorded extraction purpose is unchanged and the 33 resource_network domain tests were re-run green against this content; the edit's own design rationale was not re-derived here."
+    },
+    {
+      "source": "src/domain/resource_network/http_types.h",
+      "target": "src/domain/resource_network/header_rules.h",
+      "source_sha256": "cd5ca0e06396c3b510829ac0c9e5ad26074a3be84f8d8528a116aa5d37a71fd9",
+      "target_sha256": "1eb081835dc83ca0765386c6fde12f54380585952a172c7da953904d0e8fe990",
+      "transformation": "Extract pure HTTP token, ASCII lowercase, value trimming and validation rules for the one Headers owner; selected Firefox HTTP rules recorded in Resource owner evidence."
+    },
+    {
+      "source": "src/domain/resource_network/http_types.h",
+      "target": "src/domain/resource_network/http_headers.h",
+      "source_sha256": "cd5ca0e06396c3b510829ac0c9e5ad26074a3be84f8d8528a116aa5d37a71fd9",
+      "target_sha256": "f0940f3886636374ea53db3a6ca45bf67a8f1ddcf6af31df7f2a5933f8336880",
+      "transformation": "Atomically replace single/map-vector storage with one ordered list; preserve first-value get, expose combined read, raw fields, and sorted stable Set-Cookie projection. all() is an ephemeral compatibility projection."
+    },
+    {
+      "source": "src/domain/resource_network/resource_bundle.h",
+      "target": "src/domain/resource_network/resource.h",
+      "source_sha256": "f0ea0e072c52cf7d6eccbdc496fad409561eabf0788149655a6263c8ebb210a1",
+      "target_sha256": "ce96d1ef4826996dbf8150b989a47cb7699b2c328edeb1a7d610c6804627728a",
+      "transformation": "Extract the original Resource entity; body kind and retained-byte measurement live on the same entity with body/status/headers."
+    },
+    {
+      "source": "src/domain/resource_network/resource_bundle.h",
+      "target": "src/domain/resource_network/resource_services.h",
+      "source_sha256": "f0ea0e072c52cf7d6eccbdc496fad409561eabf0788149655a6263c8ebb210a1",
+      "target_sha256": "36110f0d088720746599d6622f35f29dfa5822dcfb342450ebeddcef77816785",
+      "transformation": "Extract unchanged URL matching, repository port and event responsibilities; retained string URL matching is not a browser URL parser."
+    },
+    {
+      "source": "src/domain/shared/value_object.h",
+      "target": "src/domain/shared/value_object.h",
+      "source_sha256": "3a0ad9c1333683f22d1fdc9c55b6ec296516b496c21b5bace113d1b8005865a1",
+      "target_sha256": "3a0ad9c1333683f22d1fdc9c55b6ec296516b496c21b5bace113d1b8005865a1",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/runtime_context/js_value.h",
+      "target": "src/domain/runtime_context/js_value.h",
+      "source_sha256": "0a5a9fee532c4383ca48e8414960d8c6e7f6fd9a0cf34ca9fb9f5f8ff570bbbe",
+      "target_sha256": "0a5a9fee532c4383ca48e8414960d8c6e7f6fd9a0cf34ca9fb9f5f8ff570bbbe",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/runtime_context/type_mapping_service.h",
+      "target": "src/domain/runtime_context/type_mapping_service.h",
+      "source_sha256": "6077f3b13bed70dd287b9410449f3073307acf8b4bcdaf5b3ca38eb638c34159",
+      "target_sha256": "6077f3b13bed70dd287b9410449f3073307acf8b4bcdaf5b3ca38eb638c34159",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/runtime_context/context_lifecycle_policy.h",
+      "target": "src/domain/runtime_context/context_lifecycle_policy.h",
+      "source_sha256": "ab1f76d62b1026af5ba2615c81a22aae725086fcce41a22f496e517241d3284c",
+      "target_sha256": "ab1f76d62b1026af5ba2615c81a22aae725086fcce41a22f496e517241d3284c",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/runtime_context/eval_options.h",
+      "target": "src/domain/runtime_context/eval_options.h",
+      "source_sha256": "2c3965091821c55a4c5ce4de07900f5b108a3045f6e08c947c688f33995e2e0a",
+      "target_sha256": "2c3965091821c55a4c5ce4de07900f5b108a3045f6e08c947c688f33995e2e0a",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/shared/domain_exception.h",
+      "target": "src/domain/shared/domain_exception.h",
+      "source_sha256": "98782668273ab5ef4418ab0cbf043ace195aacb13005c41092089af88b979ea6",
+      "target_sha256": "98782668273ab5ef4418ab0cbf043ace195aacb13005c41092089af88b979ea6",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/runtime_context/eval_result.h",
+      "target": "src/domain/runtime_context/eval_result.h",
+      "source_sha256": "1535a1a4e2c45150ae64062fbe67f8b7547826a5315bf319f007fa22fd9f7d45",
+      "target_sha256": "1535a1a4e2c45150ae64062fbe67f8b7547826a5315bf319f007fa22fd9f7d45",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/runtime_context/js_isolate.h",
+      "target": "src/domain/runtime_context/js_isolate.h",
+      "source_sha256": "a8d92bcdf042ed550ee789a12d3b652ac632c16ed869231790df9073d3c5dc10",
+      "target_sha256": "a8d92bcdf042ed550ee789a12d3b652ac632c16ed869231790df9073d3c5dc10",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/runtime_context/runtime_context.h",
+      "target": "src/domain/runtime_context/runtime_context.h",
+      "source_sha256": "c0fd649fda9e8b87bf9eec681aaea62a823b5e4b5a3b027a5a6dc744ab77e73a",
+      "target_sha256": "c0fd649fda9e8b87bf9eec681aaea62a823b5e4b5a3b027a5a6dc744ab77e73a",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/runtime_context/events.h",
+      "target": "src/domain/runtime_context/events.h",
+      "source_sha256": "bf208f7028729562deb5e7e857ecd364e3f80576674cd9189c42c5478b26ec30",
+      "target_sha256": "bf208f7028729562deb5e7e857ecd364e3f80576674cd9189c42c5478b26ec30",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/observability/api_monitor.h",
+      "target": "src/domain/observability/api_monitor.h",
+      "source_sha256": "3f9c16470f4b6056c024e2e719d8fb78d369e1636ab7bc181074422bc444911b",
+      "target_sha256": "3f9c16470f4b6056c024e2e719d8fb78d369e1636ab7bc181074422bc444911b",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/platform_apis/platform_apis.h",
+      "target": "src/domain/platform_apis/platform_apis.h",
+      "source_sha256": "43508cf417ae4912506ea581237510cbaddaeabdb33664f3b60b053d5c59e34c",
+      "target_sha256": "43508cf417ae4912506ea581237510cbaddaeabdb33664f3b60b053d5c59e34c",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/audio/audio_context.h",
+      "target": "src/domain/audio/audio_context.h",
+      "source_sha256": "d20ed52fbde7d8dd2d23e800b009a7727a7c4bc0ac5609944353e4635caf19a9",
+      "target_sha256": "d20ed52fbde7d8dd2d23e800b009a7727a7c4bc0ac5609944353e4635caf19a9",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/font_loading/font_source.h",
+      "target": "src/domain/font_loading/font_source.h",
+      "source_sha256": "85ac4267970142e1e9a5ed8d67495fffaab9146c0c7d655f42c273dd31a63e08",
+      "target_sha256": "85ac4267970142e1e9a5ed8d67495fffaab9146c0c7d655f42c273dd31a63e08",
+      "transformation": "byte-identical"
+    },
+    {
+      "source": "src/domain/styling/stylesheet.h",
+      "target": "src/domain/styling/stylesheet.h",
+      "source_sha256": "d64fd1647013d0045c8e97f5b3729a0a1c0f516d4e5ba7a0a1c13adcc5c0437e",
+      "target_sha256": "22c0809eeb03bf6e132a6262f59ffee05d84da4d31ec68099310f0e12750a70d",
+      "transformation": "Stage82: move original ElementNode/ParsedSelector into the same Styling owner; extend selector grammar, compiled list/nth/has matching and original cascade relation input; original DOM remains the data source with per-compute memo only. No second tree or cascade."
+    },
+    {
+      "source": "src/domain/rtc/rtc_session.h",
+      "target": "src/domain/rtc/rtc_session.h",
+      "source_sha256": "e463af783f04f3775b96852410517b9b56fb0a08f847d4dd8e652b3e1e264609",
+      "target_sha256": "bcbc42c39ef5ce2e8a3086b76b5a4d791db05b61383cd0bf32e6eb1af1dc54b8",
+      "transformation": "T18 (D38): extend the imported WebRTC owner with the signaling/ICE state machine, transceiver list, ice-candidate precondition and data-channel send accounting the RTCPeerConnection adapter drives. The donor header had no signaling transitions (states only changed on close), so ruyijs promotes the aggregate that owns peer/data-channel state to also own the signalling table."
+    },
+    {
+      "source": "src/domain/webgpu/webgpu_capabilities.h",
+      "target": "src/domain/webgpu/webgpu_capabilities.h",
+      "source_sha256": "5c191b37508730ec2e74b5c53d0e151613460be8a7b64b128a7cdf3a31283d32",
+      "target_sha256": "5a6f8082929b0d01d0e40a0fab2329abaddd34276e1426d48c8a67a7bfb1dc48",
+      "transformation": "T19 (D39): extend the imported WebGPU capability owner with the GPUSupportedLimits table the donor header lacked, so the adapter reads every limit from this owner instead of writing a literal. The table is read-only source data (LimitTable::replace is the owner's validation path); only the features stay configurable, matching the WebGL profile-group precedent."
+    }
+  ]
+}
