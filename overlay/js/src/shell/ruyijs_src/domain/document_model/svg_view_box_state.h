@@ -1,8 +1,10 @@
 // Original Element's typed viewBox value. No JS or Geometry owner dependency.
 #pragma once
 #include "domain/document_model/dom_string.h"
+#include <cerrno>
 #include <charconv>
 #include <cmath>
+#include <cstdlib>
 #include <stdexcept>
 #include <system_error>
 
@@ -45,11 +47,18 @@ inline bool SvgViewBoxNumber(DomStringView text, float* result) {
   std::string ascii;
   ascii.reserve(text.size());
   for (char16_t c : text) ascii.push_back(char(c));
-  const char* begin = ascii.data() + (ascii[0] == '+' ? 1 : 0);
-  auto parsed = std::from_chars(begin, ascii.data() + ascii.size(), *result, std::chars_format::general);
-  if (parsed.ec == std::errc{} && parsed.ptr == ascii.data() + ascii.size()) return std::isfinite(*result);
-  if (parsed.ec != std::errc::result_out_of_range) return false;
-  // from_chars reports underflow as out-of-range; SVG accepts signed zero.
+  const char* begin = ascii.data() + (ascii[0] == '+' ? 1:0);
+  // std::from_chars(float) is availability-annotated to macOS 26 on Apple;
+  // the token is pre-validated above (digits/dot/exponent only), where
+  // strtod parses the same span with the same range-error reporting.
+  const std::string body(begin, ascii.data() + ascii.size());
+  char* stop = nullptr;
+  errno = 0;
+  *result = std::strtod(body.c_str(), &stop);
+  const bool whole = stop == body.c_str() + body.size();
+  if (errno == 0 && whole) return std::isfinite(*result);
+  if (errno != ERANGE) return false;
+  // strtod reports underflow as ERANGE; SVG accepts signed zero.
   // Classify by the effective decimal exponent, including leading zero digits.
   size_t ordinal = 0, firstNonzero = 0; bool found = false;
   for (size_t i = digits; i < exponentAt; ++i) if (text[i] != u'.') {

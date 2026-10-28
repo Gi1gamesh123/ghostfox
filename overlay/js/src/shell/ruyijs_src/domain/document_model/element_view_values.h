@@ -1,8 +1,10 @@
 #pragma once
 #include "domain/document_model/element.h"
+#include <cerrno>
 #include <charconv>
 #include <cmath>
 #include <cstdint>
+#include <cstdlib>
 #include <limits>
 
 namespace ruyijs::domain::document_model {
@@ -28,9 +30,13 @@ inline std::optional<int32_t> view_inline_dimension(DomStringView css, DomString
   number.reserve(end - start);
   for (size_t i = start; i < end; ++i) number.push_back(char(css[i]));
   double parsed = 0;
-  const auto result = std::from_chars(number.data(), number.data() + number.size(), parsed,
-                                     std::chars_format::fixed);
-  if (result.ec != std::errc() || !std::isfinite(parsed)) return std::nullopt;
+  // std::from_chars(double, fixed) is availability-annotated to macOS 26 on
+  // Apple; the span holds digits and dots only, which strtod parses the
+  // same way (longest valid prefix, ERANGE on overflow).
+  char* stop = nullptr;
+  errno = 0;
+  parsed = std::strtod(number.c_str(), &stop);
+  if ((stop == number.c_str() && errno == 0) || errno == ERANGE || !std::isfinite(parsed)) return std::nullopt;
   parsed = std::trunc(parsed);
   if (parsed < 0 || parsed > std::numeric_limits<int32_t>::max()) return std::nullopt;
   return int32_t(parsed);
