@@ -16,10 +16,15 @@ jobs:
 
       - name: Toolchain
         run: |
-          brew install rust cbindgen node python@3.12
+          # mach hard-caps supported python at 3.14; brew's default python3
+          # on macos-26 is 3.15 and taskgraph deps (rtoml) won't build on it,
+          # while python3.11 fallbacks fail taskgraph generation.
+          brew install rust cbindgen node python@3.14
           mkdir -p /usr/local/bin
-          ln -sf "$(brew --prefix python@3.12)/bin/python3.12" /usr/local/bin/python3
-          ln -sf "$(brew --prefix python@3.12)/bin/python3.12" /usr/local/bin/python
+          ln -sf "$(brew --prefix python@3.14)/bin/python3.14" /usr/local/bin/python3
+          ln -sf "$(brew --prefix python@3.14)/bin/python3.14" /usr/local/bin/python
+          echo "$(brew --prefix python@3.14)/bin" >> "$GITHUB_PATH"
+          hash -r
           python3 --version
           xcodebuild -version
           xcrun --show-sdk-version
@@ -56,6 +61,9 @@ jobs:
       - name: Fetch Mozilla clang 19
         working-directory: tree
         run: |
+          # fail fast if PATH drift resurrected an unsupported python
+          PYV=$(python3 -c 'import sys; print("%d.%d" % sys.version_info[:2])')
+          [ "$PYV" = "3.14" ] || { echo "::error::python3 is $PYV, mach needs 3.14 (3.15+ breaks taskgraph deps)"; exit 1; }
           # aarch64 runner: the arm64 flavor of Mozilla's clang (the x64
           # label extracts nothing usable here).
           python3 mach artifact toolchain --from-build macosx64-aarch64-clang
@@ -65,9 +73,9 @@ jobs:
         working-directory: tree
         run: |
           # mach's state dir may hold virtualenvs built by an unsupported
-          # python; start clean and pin python3 via PATH (3.12).
+          # python; start clean and pin python3 via PATH (3.14).
           rm -rf "$HOME/.mozbuild"
-          export PATH="$PWD/clang/bin:/usr/local/bin:$PATH"
+          export PATH="/usr/local/bin:$PWD/clang/bin:$PATH"
           export CC="$PWD/clang/bin/clang"
           export CXX="$PWD/clang/bin/clang++"
           "$CC" --version
