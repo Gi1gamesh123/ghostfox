@@ -1,6 +1,7 @@
 #include "execution_scheduling/model_internal.h"
 #include <algorithm>
 #include <climits>
+#include <cmath>
 
 namespace ruyijs::execution_scheduling {
 Status Model::Schedule(Kind kind, int32_t delay, uint64_t* id) noexcept {

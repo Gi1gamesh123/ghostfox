@@ -3,6 +3,7 @@
 // Firefox's checks (top-level, transient activation consumed, width/height
 // together); this headless runtime has no window system, so a request that
 // passes them rejects as Firefox does when the PiP window cannot be created.
+#include <cmath>
 #include "browser_environment/window_legacy.h"
 #include "browser_environment/window_members.h"
 #include "interaction/realm.h"

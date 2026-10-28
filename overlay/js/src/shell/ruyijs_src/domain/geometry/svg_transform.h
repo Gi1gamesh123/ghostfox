@@ -1,5 +1,6 @@
 #pragma once
 #include "domain/geometry/svg_values.h"
+#include <cmath>
 #include <cstdlib>
 #include <string>
 

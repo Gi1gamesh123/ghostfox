@@ -2,6 +2,7 @@
 // list Skia builds before it constructs edges, plus the line clip that turns the
 // parts outside the clip into vertical edges on the boundary.
 #include <algorithm>
+#include <cmath>
 #include <cstring>
 
 #include "web_canvas/raster_clip.h"

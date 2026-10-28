@@ -10,6 +10,7 @@
 #include "js/Exception.h"
 #include "js/PropertyAndElement.h"
 #include <algorithm>
+#include <cmath>
 #include <cstdlib>
 #include <cstring>
 #include <string>

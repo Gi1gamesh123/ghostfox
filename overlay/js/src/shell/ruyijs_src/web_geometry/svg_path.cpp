@@ -1,6 +1,7 @@
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
+#include <cmath>
 #include <windows.h>
 #include <d2d1.h>
 #include <wrl/client.h>

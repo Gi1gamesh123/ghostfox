@@ -2,6 +2,7 @@
 // base sizes and automatic minimums (CSS Sizing 3 §5, CSS Flexbox 1 §9.2, §4.5).
 // Percentages resolve to zero, so a node's value is independent of its
 // containing block and is memoized for the call.
+#include <cmath>
 #include "domain/styling/box_layout_internal.h"
 
 namespace ruyijs::domain::styling {

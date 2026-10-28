@@ -3,6 +3,7 @@
 // component counts match. Everything else fails the evaluation.
 #include "web_graphics/glsl.h"
 
+#include <cctype>
 #include <cstdlib>
 
 namespace ruyijs::web_graphics {

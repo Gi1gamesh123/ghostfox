@@ -8,6 +8,7 @@
 #include "js/MapAndSet.h"
 #include "js/Wrapper.h"
 #include "web_styling/internal.h"
+#include <cmath>
 #include <iterator>
 #include <string>
 

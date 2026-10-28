@@ -1,4 +1,5 @@
 // Path2D shares the context's bounded command format and geometry projection.
+#include <cmath>
 #include "web_canvas/internal.h"
 #include "js/Realm.h"
 #include "runtime/native_constructor_trace.h"

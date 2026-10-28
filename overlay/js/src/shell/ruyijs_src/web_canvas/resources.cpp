@@ -1,4 +1,5 @@
 // Canvas drawing resources: state lives only in these realm-owned instances.
+#include <cmath>
 #include "web_canvas/internal.h"
 #include "js/Realm.h"
 

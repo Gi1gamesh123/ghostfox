@@ -5,6 +5,7 @@
 // BoxFlow::Place with the resolved content-box sizes forced, so block sizing
 // stays the single box owner.
 #include "domain/styling/box_layout_internal.h"
+#include <cmath>
 #include <cstdlib>
 
 namespace ruyijs::domain::styling {

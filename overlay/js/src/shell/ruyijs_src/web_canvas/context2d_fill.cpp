@@ -1,6 +1,7 @@
 // fill(), fillRect() and fillText() rasterize through the domain's analytic
 // scan converter; hit testing projects the recorded path rather than installing
 // a second owner.
+#include <cmath>
 #include "web_canvas/internal.h"
 #include "web_canvas/path_geometry.h"
 

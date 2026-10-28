@@ -1,3 +1,4 @@
+#include <cmath>
 #include "web_gpu/internal.h"
 #include "web_gpu/value_objects.h"
 

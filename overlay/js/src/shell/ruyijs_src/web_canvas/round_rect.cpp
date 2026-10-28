@@ -1,6 +1,7 @@
 // RoundRect records a bounded polygon through the existing path store (D69).
 #include "web_canvas/internal.h"
 #include <algorithm>
+#include <cmath>
 #include "js/ErrorReport.h"
 #include "js/ForOfIterator.h"
 #include "js/Symbol.h"

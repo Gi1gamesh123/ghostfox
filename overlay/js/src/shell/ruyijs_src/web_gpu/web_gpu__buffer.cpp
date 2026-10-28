@@ -1,6 +1,7 @@
 // GPUBuffer and its map state machine. The buffer owns no bytes; mapAsync
 // settles at once and getMappedRange hands back a zero-filled ArrayBuffer, per
 // deviation D39. Invalid transitions throw the page realm's OperationError.
+#include <cmath>
 #include "web_gpu/internal.h"
 
 #include "js/ArrayBuffer.h"

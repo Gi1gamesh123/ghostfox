@@ -1,4 +1,6 @@
 // The remaining public ruyijs methods. Drawing has no rasterizer (D35).
+#include <cmath>
+#include <cstring>
 #include "web_canvas/internal.h"
 #include "document_model/state.h"
 #include "web_media/image_codec.h"

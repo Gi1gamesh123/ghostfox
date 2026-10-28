@@ -8,6 +8,7 @@
 #include "domain/styling/box_layout_internal.h"
 #include "domain/styling/css_numeric_value.h"
 #include "domain/styling/css_components.h"
+#include <cmath>
 #include <cstdlib>
 
 namespace ruyijs::domain::styling {

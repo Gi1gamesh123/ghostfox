@@ -1,6 +1,7 @@
 #include "web_geometry/svg.h"
 #include "web_geometry/svg_path.h"
 #include "domain/styling/css_numeric_value.h"
+#include <cmath>
 #include <cstdlib>
 
 namespace ruyijs::web_geometry {

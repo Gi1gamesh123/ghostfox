@@ -3,6 +3,7 @@
 // HTMLCanvasElement, so its 2D context reads and writes the same RGBA store.
 #include "web_canvas/internal.h"
 
+#include <cmath>
 #include <cstring>
 #include "interaction/realm.h"
 

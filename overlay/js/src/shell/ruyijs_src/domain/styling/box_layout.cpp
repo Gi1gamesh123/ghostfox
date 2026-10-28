@@ -1,3 +1,4 @@
+#include <cmath>
 #include "domain/styling/box_layout_internal.h"
 
 namespace ruyijs::domain::styling {

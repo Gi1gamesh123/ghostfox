@@ -1,3 +1,4 @@
+#include <cmath>
 #include "web_geometry/svg_length.h"
 #include "js/Exception.h"
 #include "js/Realm.h"

@@ -1,3 +1,4 @@
+#include <cmath>
 #include "execution_scheduling/model_internal.h"
 
 namespace ruyijs::execution_scheduling {

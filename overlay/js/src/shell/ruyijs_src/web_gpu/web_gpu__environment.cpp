@@ -3,6 +3,7 @@
 // adapter info strings, adapter/device feature sets, limit overrides and the
 // fallback flag. Features and limits are applied to the imported
 // WebGpuCapabilitiesAggregate through Model; defaults stay with that owner.
+#include <cmath>
 #include "web_gpu/internal.h"
 
 #include "js/Array.h"

@@ -1,3 +1,4 @@
+#include <cmath>
 #include "domain/styling/box_layout_internal.h"
 #include "domain/styling/css_components.h"
 #include "domain/styling/css_numeric_value.h"

@@ -3,6 +3,7 @@
 #include "domain/document_model/input_radio_group.h"
 #include "domain/document_model/textarea_values.h"
 #include <charconv>
+#include <cmath>
 
 namespace ruyijs::document_model {
 Status Model::InputText(NodeKey key, DomStringView name, DomString* out) const noexcept {

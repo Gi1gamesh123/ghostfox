@@ -1,3 +1,4 @@
+#include <cmath>
 #include "web_geometry/svg_length.h"
 #include "js/String.h"
 #include "js/Exception.h"

@@ -3,6 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 // Bounded table checks from gfxDWriteFont::HasBitmapStrikeForSize and IsCJKFont.
 #pragma once
+#include <cmath>
 #include <cstdint>
 #include "web_geometry/font_backend.h"
 namespace ruyijs::web_geometry {
