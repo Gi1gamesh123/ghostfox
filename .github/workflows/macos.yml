@@ -93,15 +93,15 @@ jobs:
           command -v go >/dev/null || brew install -q go
           SHELL_BIN=$(ls tree/obj-*/dist/bin/js | head -1)
           SHELL_DIR=$(dirname "$SHELL_BIN")
-          go build -o "$SHELL_DIR/ghostfox-worker" ./go/cmd/necko-worker
-          go build -o /tmp/ghostfox-smoke ./go/cmd/smoke
+          (cd go && go build -o "$SHELL_DIR/ghostfox-worker" ./cmd/necko-worker)
+          (cd go && go build -o /tmp/ghostfox-smoke ./cmd/smoke)
           GHOSTFOX_SHELL="$SHELL_BIN" /tmp/ghostfox-smoke
 
       - name: Navtest (real Necko fetch via worker)
         continue-on-error: true
         run: |
           SHELL_BIN=$(ls tree/obj-*/dist/bin/js | head -1)
-          go build -o /tmp/ghostfox-navtest ./go/cmd/navtest
+          (cd go && go build -o /tmp/ghostfox-navtest ./cmd/navtest)
           RUYIJS_SHELL="$SHELL_BIN" /tmp/ghostfox-navtest
 
       - name: Upload engine
