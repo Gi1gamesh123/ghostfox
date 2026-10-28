@@ -88,6 +88,13 @@ jobs:
           "$PY3" --version
           "$PY3" mach build
 
+      - name: Upload engine
+        uses: actions/upload-artifact@v4
+        with:
+          name: ghostfox-js-macos
+          path: tree/obj-*/dist/bin/js
+          if-no-files-found: error
+
       - name: Smoke (engine runs, offline page)
         run: |
           command -v go >/dev/null || brew install -q go
@@ -103,10 +110,3 @@ jobs:
           SHELL_BIN=$(ls tree/obj-*/dist/bin/js | head -1)
           (cd go && go build -o /tmp/ghostfox-navtest ./cmd/navtest)
           RUYIJS_SHELL="$SHELL_BIN" /tmp/ghostfox-navtest
-
-      - name: Upload engine
-        uses: actions/upload-artifact@v4
-        with:
-          name: ghostfox-js-macos
-          path: tree/obj-*/dist/bin/js
-          if-no-files-found: error
