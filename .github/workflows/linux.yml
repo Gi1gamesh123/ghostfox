@@ -7,7 +7,7 @@ on:
 jobs:
   build-linux:
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -30,7 +30,13 @@ jobs:
           cp -r overlay/js/src/shell/. tree/js/src/shell/
           cp -r overlay/js/src/vm/.    tree/js/src/vm/
           cp -r overlay/config/.       tree/config/
-          cp mozconfigs/mozconfig.linux tree/mozconfig
+          cat > tree/mozconfig <<EOF
+          ac_add_options --enable-project=js
+          ac_add_options --enable-optimize=-O2
+          ac_add_options --disable-jemalloc
+          ac_add_options --disable-tests
+          mk_add_options MOZ_PARALLEL_BUILD="$(nproc)"
+          EOF
 
       - name: Fetch Mozilla clang 19
         working-directory: tree
@@ -42,6 +48,7 @@ jobs:
           export PATH="$PWD/clang/bin:$HOME/.cargo/bin:$PATH"
           export CC="$PWD/clang/bin/clang"
           export CXX="$PWD/clang/bin/clang++"
+          "$CC" --version
           python3 mach build
 
       - name: Upload engine

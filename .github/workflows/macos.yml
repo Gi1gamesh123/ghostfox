@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-macos:
-    runs-on: macos-14
+    runs-on: macos-26
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
@@ -19,6 +19,8 @@ jobs:
           ln -sf "$(brew --prefix python@3.12)/bin/python3.12" /usr/local/bin/python3
           ln -sf "$(brew --prefix python@3.12)/bin/python3.12" /usr/local/bin/python
           python3 --version
+          xcodebuild -version
+          xcode-select -p
 
       - name: Fetch Firefox 158 source
         run: |
