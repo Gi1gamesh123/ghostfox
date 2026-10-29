@@ -16,7 +16,14 @@ cd /root/ghostfox/firefox-158.0/obj-x86_64-pc-linux-gnu
 export PATH=/root/.mozbuild/clang/bin:/root/.cargo/bin:$PATH
 /root/.mozbuild/srcdirs/firefox-158.0-d909e44614e9/_virtualenvs/build/bin/python \
   ./config.status > /root/cs.log 2>&1 || { echo CONFIG_STATUS_FAILED; tail -12 /root/cs.log; exit 1; }
+# set -e 下 make 失败会当场退出，错误报告段必须挂在 set +e 区间内
+set +e
 make -j"$(nproc)" > /root/full_err.log 2>&1
-echo "MAKE_EXIT=$?"
-grep -aE ": error|ld.lld: error" /root/full_err.log | head -12
+MAKE_EXIT=$?
+set -e
+echo "MAKE_EXIT=$MAKE_EXIT"
+if [ "$MAKE_EXIT" -ne 0 ]; then
+  grep -aE ": error|ld.lld: error" /root/full_err.log | head -12
+fi
 tail -2 /root/full_err.log
+[ "$MAKE_EXIT" -eq 0 ] || exit 1

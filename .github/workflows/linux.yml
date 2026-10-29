@@ -57,3 +57,12 @@ jobs:
           name: ghostfox-js-linux
           path: tree/obj-*/dist/bin/js
           if-no-files-found: error
+
+      - name: Smoke (engine runs, offline page)
+        run: |
+          command -v go >/dev/null || { sudo apt-get update && sudo apt-get install -y golang-go; }
+          SHELL_BIN=$(ls tree/obj-*/dist/bin/js | head -1)
+          SHELL_DIR=$(dirname "$SHELL_BIN")
+          (cd go && go build -o "$SHELL_DIR/ghostfox-worker" ./cmd/necko-worker)
+          (cd go && go build -o /tmp/ghostfox-smoke ./cmd/smoke)
+          GHOSTFOX_SHELL="$SHELL_BIN" /tmp/ghostfox-smoke

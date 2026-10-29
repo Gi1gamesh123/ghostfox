@@ -2,8 +2,10 @@
 # ghostfox Linux/macOS bootstrap: fetch the official Firefox 158 source,
 # overlay the ghostfox sources, and build the js engine.
 #   Linux: toolchain via `./mach bootstrap` (~/.mozbuild) — see mozconfigs/
-#   macOS: brew install llvm@19 rust cbindgen node  — see mac_build.sh
+#   macOS: python@3.14 + Mozilla clang via mac_build.sh — see mac_build.sh
+#   （brew llvm@19 配不动 Xcode 26 的 Apple ld，勿用，见 mac_build.sh 头注）
 set -e
+set -o pipefail
 VER=158.0
 cd "$(dirname "$0")"
 
@@ -13,7 +15,6 @@ if [ ! -d firefox-$VER ]; then
     "https://archive.mozilla.org/pub/firefox/releases/$VER/source/firefox-$VER.source.tar.xz"
   echo "[bootstrap] extracting..."
   tar xf firefox-$VER.source.tar.xz
-  mv firefox-$VER firefox-$VER 2>/dev/null || true
   rm -f firefox-$VER.source.tar.xz
 fi
 
@@ -27,8 +28,14 @@ case "$(uname -s)" in
   Linux)
     cp mozconfigs/mozconfig.linux firefox-$VER/mozconfig
     cd firefox-$VER
-    ./mach bootstrap 2>/dev/null || true   # fetches clang19/rust/cbindgen/node
-    python3 mach build 2>&1 | grep -aE ": error|Error 1|Error 2|successful" | head -40
+    ./mach bootstrap   # fetches clang19/rust/cbindgen/node into ~/.mozbuild
+    # 全量日志落文件再过滤：管道 grep|head 会吞退出码（假绿）且 head 退出后
+    # 的 SIGPIPE 会掐死构建进程
+    if ! python3 mach build > /tmp/ghostfox-build.log 2>&1; then
+      grep -aE ": error|Error 1|Error 2|ld.lld: error" /tmp/ghostfox-build.log | head -40
+      exit 1
+    fi
+    grep -a "successful" /tmp/ghostfox-build.log | head -3 || true
     echo "[bootstrap] engine: obj-*/dist/bin/js"
     ;;
 esac

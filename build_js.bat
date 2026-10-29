@@ -1,4 +1,6 @@
 @echo off
+rem 脚本与注释为 UTF-8：切换控制台代码页，否则中文报错信息乱码
+chcp 65001 >nul
 rem ruyi-clone SpiderMonkey 构建 (原生 mingw make, 绕开 msys2 fork 问题)
 rem
 rem 路径自适应，不钉死盘符：环境根目录按
@@ -24,6 +26,18 @@ if not exist "%MOZILLABUILD%\python3\python.exe" (
     echo [build_js] 请安装 MozillaBuild，或先 set MOZILLABUILD=安装目录
     exit /b 1
 )
+rem mozconfig：MOZCONFIG 环境变量 > 树内已有 mozconfig > 仓库 mozconfigs/mozconfig.win
+rem （VS2022 clang-cl）。不接 mozconfig 裸跑 mach build 会试图构建整个 Firefox。
+if not "%MOZCONFIG%"=="" goto mozconfig_ok
+set "MOZCONFIG=%ROOT%\firefox-158.0\mozconfig"
+if exist "%MOZCONFIG%" goto mozconfig_ok
+if exist "%~dp0mozconfigs\mozconfig.win" set "MOZCONFIG=%~dp0mozconfigs\mozconfig.win"
+:mozconfig_ok
+if not exist "%MOZCONFIG%" (
+    echo [build_js] 未找到可用的 mozconfig（%MOZCONFIG% 不存在）
+    exit /b 1
+)
+echo [build_js] MOZCONFIG=%MOZCONFIG%
 set "PATH=%ROOT%\shims;%ROOT%\firefox-158.0\clang\bin;%ROOT%\firefox-158.0\rustc\bin;%ROOT%\cargo-home\bin;%MOZILLABUILD%\msys2\usr\bin;%MOZILLABUILD%\bin;C:\Windows\System32"
 set "MOZBUILD_STATE_PATH=%ROOT%\mozbuild-state"
 set "PIP_CACHE_DIR=%ROOT%\pip-cache"

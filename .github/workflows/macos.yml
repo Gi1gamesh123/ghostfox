@@ -88,11 +88,19 @@ jobs:
           "$PY3" --version
           "$PY3" mach build
 
+      - name: Build necko-worker beside engine (artifact ships js+worker)
+        run: |
+          command -v go >/dev/null || brew install -q go
+          SHELL_DIR=$(dirname "$(ls tree/obj-*/dist/bin/js | head -1)")
+          (cd go && go build -o "$SHELL_DIR/ghostfox-worker" ./cmd/necko-worker)
+
       - name: Upload engine
         uses: actions/upload-artifact@v4
         with:
           name: ghostfox-js-macos
-          path: tree/obj-*/dist/bin/js
+          path: |
+            tree/obj-*/dist/bin/js
+            tree/obj-*/dist/bin/ghostfox-worker
           if-no-files-found: error
 
       - name: Smoke (engine runs, offline page)
