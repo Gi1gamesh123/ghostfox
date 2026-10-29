@@ -5,8 +5,8 @@ of the ruyiJS engine, ported to Linux and macOS, driven over a cross-platform
 stdio RPC protocol with a Go client.
 
 - **Windows**: native (named pipes → stdio), VS2022 clang-cl
-- **Linux**: native, LLVM 19
-- **macOS**: native (planned, CI via GitHub Actions macos-14)
+- **Linux**: native, CI on ubuntu-24.04 (releng clang via `mach artifact toolchain`)
+- **macOS**: native (Apple silicon), CI on macos-26 (Mozilla clang + Apple ld)
 - **Go client**: `go/` — stdio frame protocol (4-byte LE length + JSON),
   cross-compiles everywhere (`CGO_ENABLED=0 GOOS=<os> go build`)
 
@@ -43,14 +43,50 @@ rust, cbindgen, node. See `mozconfigs/mozconfig.linux`.
 
 ### macOS
 
-    brew install llvm@19 rust cbindgen node
-    ./mac_build.sh                      # Apple silicon or Intel
+The supported path is CI: the `macos.yml` workflow builds on a **macos-26**
+runner and uploads `js` (+ the Go worker) as an artifact — grab that instead
+of building locally. Local builds on older macOS releases do **not** work:
+Firefox 158 requires the macOS **26.5 SDK** (Xcode 26). If you do have a
+macOS 26 machine, replicate the workflow rather than `brew install llvm`:
+it uses Mozilla's own clang (`mach artifact toolchain --from-build
+macosx64-aarch64-clang`, native arm64) paired with Apple ld, and calls
+`$(brew --prefix python@3.14)/bin/python3.14` explicitly (brew's default
+python 3.15 exceeds `mach`'s supported maximum, and python@3.14 is keg-only
+so there is no bare `python3` on PATH). `mac_build.sh` predates this recipe
+and is kept for reference only.
 
 ### Cross-platform client + transport worker
 
     cd go
     CGO_ENABLED=0 GOOS=linux   go build -o ghostfox-client ./cmd/smoke
     CGO_ENABLED=0 GOOS=darwin  go build -o ghostfox-worker ./cmd/necko-worker
+
+## Continuous integration
+
+`.github/workflows/linux.yml` and `macos.yml` build the engine end to end on
+every push (~48 min Linux, ~10 min macOS with caches) and upload the `js`
+binary as a workflow artifact. The artifacts are the intended distribution
+channel — prebuilt, no local Firefox toolchain needed. The worker is not in
+the artifact; build it from `go/` (one command, no toolchain).
+
+## Known build pitfalls (all hit in practice on the macOS CI bring-up)
+
+- **SDK floor**: Firefox 158 refuses SDKs < 26.5 → only macos-26 runners work.
+- **Linker pairing**: brew LLVM fails at "Failed to find an adequate linker"
+  against Xcode 26's Apple ld. Use Mozilla's releng clang (see above).
+- **python version**: `mach` supports ≤ 3.14; brew python is 3.15 on
+  macos-26 and `rtoml` fails to compile under 3.15. The fallback python3.11
+  cannot run taskgraph. Use the python@3.14 keg binary explicitly.
+- **Apple libc++ float charconv**: `std::to_chars(float)` is available from
+  macOS 13.3, but `std::from_chars(float)` only from macOS **26.0**. The
+  overlay replaces two float `from_chars` call sites with strtod-based
+  parsing (tokens are pre-validated numerics; see commit 5ee3aee).
+- **libc++ 22 strictness**: rejects the two-raw-pointer `std::string`
+  constructor, and headers like `<cmath>`/`<cctype>`/`<cstring>` are no
+  longer transitively included — ~31 overlay TUs needed explicit includes.
+- **CI artifact gating**: `actions/upload-artifact` defaults to
+  `if-no-files-found: warn`, which turns a failed build into a silent
+  green run. Ours is set to `error`.
 
 ## Engine protocol
 
@@ -61,7 +97,10 @@ framed JSON over its stdin/stdout. Ops: `eval`, `set`, `expose`, `native`,
 
 Network traffic goes through a separate transport worker process
 (`go/cmd/necko-worker`) spawned by the engine and wired over pipes, carrying
-the same framing the upstream engine used for its Necko helper.
+the same framing the upstream engine used for its Necko helper. The worker
+pins HTTP/1.1: Google's front end kills Go's HTTP/2 connections on
+`/search` (EOF), so `NextProtos` is pinned accordingly with a 45s client
+timeout.
 
 ## Tests
 
